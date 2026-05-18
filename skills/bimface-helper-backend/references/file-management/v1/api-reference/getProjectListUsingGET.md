@@ -1,0 +1,100 @@
+# 获取项目列表
+```
+GET https://api.bimface.com/bdfs/domain/v1/hubs/{hubId}/projects
+```
+
+### 说明
+根据hubId查询所属应用下的项目，默认开启useFuzzySearch，搜索名字中包含关键字的项目。
+
+### 参数
+##### Header
+|名称|说明|类型|
+|---|---|---|
+|Authorization *|Bearer {accessToken}|string|
+*为必填项
+
+##### Path
+|名称|说明|类型|
+|---|---|---|
+|hubId *|hubId|string|
+*为必填项
+
+##### Query
+|名称|说明|类型|
+|---|---|---|
+|name|项目名称,使用URL编码(UTF-8),最多256个字符|string|
+|useFuzzySearch|是否开启模糊搜索,若传了name, 默认为true|boolean|
+
+### 响应
+
+|HTTP代码|说明|类型|
+|---|---|---|
+|**200**|OK|RestResponse«List«ProjectDTO»»|
+|**401**|Unauthorized|-|
+|**403**|Forbidden|-|
+|**404**|Not Found|-|
+
+##### 200响应参数
+
+|名称|说明|类型|
+|---|---|---|
+|code|状态代码|string|
+|data|返回数据|< ProjectDTO >array|
+|hubId|hubId|string|
+|thumbnail|项目缩略图|string|
+|createTime|项目创建时间|string|
+|name|项目名称|string|
+|appKey|appKey|string|
+|updateTime|项目更新时间|string|
+|id|项目ID（projectId）|string|
+|tenantCode|hub所在的租户|string|
+|type|项目类型|string|
+|info|项目信息|string|
+|message|提示信息|string|
+
+### 消耗
+
+* `application/json`
+
+
+### 生成
+
+* `application/json`
+* `*/*`
+
+
+### HTTP请求示例
+
+##### 请求 path
+```
+https://api.bimface.com/bdfs/domain/v1/hubs/10000000000060002/projects?name=BIMFACE
+```
+
+
+##### 请求 header
+```json
+"Authorization: Bearer cn-e9725999-0b36-4c0e-bdca-38ea88888888"
+```
+
+
+### HTTP响应示例
+
+##### 响应 200
+```json
+{
+  "code" : "success",
+  "data" : [ {
+    "appKey" : "odatvZYUSAWMbdUjTU8HoZXB9tFt6123",
+    "createTime" : "2022-02-02 02:02:02",
+    "hubId" : "10000000000060002",
+    "id" : "10000000006016", // 对应projectId
+    "info" : "BIMFACE的项目",
+    "name" : "BIMFACE的默认项目",
+    "tenantCode" : "BIMFACE",
+    "thumbnail" : "https://static.bimface.com/bdfs/project/thumbnail/8e21fc91481e42ce805f0db938e04958_200X150.png",
+    "type" : "NORMAL",
+    "updateTime" : "2022-02-02 02:02:02"
+  } ],
+  "message" : "success"
+}
+```
