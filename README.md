@@ -6,11 +6,20 @@ BIMFACE Helper 是一套面向 BIMFACE 平台的开发辅助技能系列，帮�
 
 ## 安装方式
 
-将本仓库中 `skills` 下的对应技能目录复制到你项目的 `skills` 路径中即可：
+以下通过安装命令的方式和手动复制的方式任选一种：
+
+1. 通过`npx skills`命令安装技能
+```
+npx skills add bimface/bimface-helper-skills
+```
+
+
+2. 将本仓库中 `skills` 下的对应技能目录复制到您使用的Coding Agent支持的全局或项目级 `skills` 路径中即可：
 
 ```
 你的项目/
-└── skills/
+└── .agents/
+    └── skills/
         ├── bimface-helper-backend/    # 后端 API 技能
         ├── bimface-helper-v3-2d/      # 2D 矢量图纸技能
         └── bimface-helper-v3-3d/      # 3D 模型技能
