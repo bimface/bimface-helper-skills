@@ -17,7 +17,7 @@
 
 ```javascript
 // ESM 动态 import（主要方式，推荐）
-const {BimfaceSDKLoader} = await import('https://static.bimface.com/api/BimfaceSDKLoader/BimfaceSDKLoader-v4.esm.js');
+const {BimfaceSDKLoader, BimfaceLanguageOption} = await import('https://static.bimface.com/api/BimfaceSDKLoader/BimfaceSDKLoader-v4.esm.js');
 ```
 
 备选：script 标签方式（兼容旧版）：
@@ -34,12 +34,12 @@ const {BimfaceSDKLoader} = await import('https://static.bimface.com/api/BimfaceS
 
 ```javascript
 // ESM 方式加载
-const {BimfaceSDKLoader} = await import('https://static.bimface.com/api/BimfaceSDKLoader/BimfaceSDKLoader-v4.esm.js');
+const {BimfaceSDKLoader, BimfaceLanguageOption} = await import('https://static.bimface.com/api/BimfaceSDKLoader/BimfaceSDKLoader-v4.esm.js');
 
 // 加载 SDK，获取 viewMetaData
 const viewMetaData = await BimfaceSDKLoader.load({
     viewToken: "your-view-token",
-    language: Glodon.Bimface.LanguageOption.en_GB  // 可选，默认中文
+    language: BimfaceLanguageOption.zh_CN  // 可选，默认中文(zh_CN)，其余选项：英文(en_GB)，中文繁体(zh_TW_CN)
 });
 // viewMetaData 将用于后续 loadModel
 ```
@@ -84,12 +84,12 @@ const viewer3D = app.createViewer({
         csmShadow: false,           // 阴影
         wireframe: false,           // 线框模式
         envMap: false,              // 环境贴图
-        exposure: 1.0,              // 曝光度
-        backgroundColor: new Glodon.Bimface.Common.Graphics.Color(0.2, 0.2, 0.2, 1.0)
+        exposure: 0,              // 曝光度，默认值为0，取值范围[-1, 1]
+        backgroundColor: [new Glodon.Bimface.Common.Graphics.Color(2, 2, 2, 1.0)]  // 背景颜色, 颜色对象前3个参数为RGB, 取值范围 [0, 255] ，最后一个为透明度，取值范围 [0, 1]
     }
-    // visualization 中所有属性均为可选，按需配置
 });
 ```
+> `createViewer`方法中的所有参数均为可选，如果用户有明确要求，则按照上述参数结构添加对应的部分参数，如果没有明确要求就不传入
 
 ---
 
@@ -177,7 +177,6 @@ let viewer3D, app, model, camera;
     // 2. 加载 SDK，获取 viewMetaData
     const viewMetaData = await BimfaceSDKLoader.load({
         viewToken: "your-view-token",
-        language: Glodon.Bimface.LanguageOption.en_GB
     });
 
     // 3. 创建 WebApplication3D
@@ -203,8 +202,6 @@ let viewer3D, app, model, camera;
             csmShadow: false,
             wireframe: false,
             envMap: false,
-            exposure: 1.0,
-            backgroundColor: new Glodon.Bimface.Common.Graphics.Color(0.2, 0.2, 0.2, 1.0)
         }
     });
 
@@ -234,7 +231,6 @@ var viewer3D, app, model, camera;
 
 BimfaceSDKLoader.load({
     viewToken: "your-view-token",
-    language: Glodon.Bimface.LanguageOption.en_GB
 }).then(function(viewMetaData) {
 
     // 创建 WebApplication3D
@@ -258,7 +254,6 @@ BimfaceSDKLoader.load({
         visualization: {
             ambientOcclusion: false,
             csmShadow: false,
-            backgroundColor: new Glodon.Bimface.Common.Graphics.Color(0.2, 0.2, 0.2, 1.0)
         }
     });
 
